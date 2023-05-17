@@ -1,7 +1,7 @@
 <script setup>
     // declaration
     import axios from "axios";
-    import { onMounted, ref } from "vue";
+    import { computed, onMounted, reactive, ref } from "vue";
 
     // data
     const POKEDEX_LIMIT = 150;
@@ -12,6 +12,11 @@
     const viewType = ref("all"); // values: all, page
     const currentPage = ref(1);
     const pageList = ref([]);
+
+    const showLoadMoreButton = computed(() => viewType.value === 'all' && pokemonList.value.length < POKEDEX_LIMIT);
+    const showPagination = computed(() => viewType.value === 'page');
+
+    // computed
 
     // methods
     async function getPokemonList(iOffset = 0, iLimit = 50) {
@@ -61,7 +66,6 @@
 
         if (sCurrentView !== sView) {
             sView === "all" ? initialLoadPokemonList() : changePagination(1);
-            currentPage.value = 1;
         }
     }
 
@@ -99,6 +103,7 @@
 
         if (oPokemonList.error === false) {
             pokemonList.value = oPokemonList.result;
+            currentPage.value = iPage;
         } else {
             alert("Something went wrong!");
         }
@@ -115,25 +120,43 @@
 </script>
 
 <template>
-    <button @click="changeViewType('all')">View All Pokemon</button>
-    <button @click="changeViewType('page')">View Pokemon by Pages</button>
-    <ol type="1">
-        <li v-for="pokemon in pokemonList" :key="pokemon.id">
-            <img :src="pokemon.image" style="height: 60px; width: 60px; object-fit: contain;" />
-            <p>{{ formatPokemonName(pokemon.name) }}</p>
-            <p>
-                <span v-for="elemtype in pokemon.types" :key="elemtype.slot">
-                    {{ elemtype.type.name.toUpperCase() }}&nbsp;
-                </span>
-            </p>
-            <button>View Details</button>
-        </li>
-        <!-- <li v-for="pokemon in pokemonList" :key="pokemon.id">{{ formatPokemonName(pokemon.name) }}</li> -->
-    </ol>
-    <button v-show="viewType === 'all' && pokemonList.length < POKEDEX_LIMIT" @click="addMorePokemon">Load More</button>
-    <div v-show="viewType === 'page'">
-        <p>
-            <button v-for="page in pageList" :key="page" @click="changePagination(page)">{{ page }}</button>
-        </p>
+    <div class="container py-4 px-3 auto">
+        <div class="d-flex justify-content-center py-4">
+            <h2 style="text-center">Vue Pokedex</h2>
+        </div>
+        <div class="d-flex btn-group py-2">
+            <input type="radio" class="btn-check" name="viewoption" autocomplete="off" value="all" v-model="viewType" />
+            <button type="button" class="btn btn-outline-primary" @click="changeViewType('all')">
+                View All Pokemon
+            </button>
+            <input type="radio" class="btn-check" name="viewoption" autocomplete="off" value="page" v-model="viewType" />
+            <button type="button" class="btn btn-outline-primary" @click="changeViewType('page')">
+                View Pokemon by Pages
+            </button>
+        </div>
+
+        <ul class="list-unstyled">
+            <li v-for="pokemon in pokemonList" :key="pokemon.id">
+                <img :src="pokemon.image" style="height: 60px; width: 60px; object-fit: contain;" />
+                <p>{{ formatPokemonName(pokemon.name) }}</p>
+                <p>
+                    <span v-for="elemtype in pokemon.types" :key="elemtype.slot">
+                        {{ elemtype.type.name.toUpperCase() }}&nbsp;
+                    </span>
+                </p>
+                <button>View Details</button>
+            </li>
+        </ul>
+
+        <div class="justify-content-center py-2" :class="[ showLoadMoreButton === true ? 'd-flex' : 'd-none' ]">
+            <button type="button" class="btn btn-outline-primary" @click="addMorePokemon">Load More</button>
+        </div>
+        <div class="pagination justify-content-center py-2" :class="[ showPagination === true ? 'd-flex' : 'd-none' ]">
+            <ul class="pagination">
+                <li class="page-item" :class="{ active: currentPage === page }" v-for="page in pageList" :key="page" @click="changePagination(page)">
+                    <a href="#" class="page-link">{{ page }}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
