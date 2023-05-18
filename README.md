@@ -1,6 +1,6 @@
 # vue_pokedex
 
-This template should help get you started developing with Vue 3 in Vite.
+Sample Pokedex App using VueJS
 
 ## Recommended IDE Setup
 
@@ -33,3 +33,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+010010100110010101110010011011110110110101100101001000000100001101100001011100110110100101101110011001110110000101101100

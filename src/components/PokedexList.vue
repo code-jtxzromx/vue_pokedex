@@ -6,6 +6,7 @@
     // components
     import Paginator from './Paginator.vue';
     import PokemonCard from "./PokemonCard.vue";
+    import PokemonDetails from "./PokemonDetails.vue";
 
     // data
     const POKEDEX_LIMIT = 150;
@@ -14,6 +15,14 @@
     const pokemonList = ref([]);
     const viewType = ref("all"); // values: all, page
     const currentPage = ref(1);
+    const selectedPokemon = ref({
+        id: 0,
+        name: '',
+        types: [],
+        image: {},
+        height: 0,
+        weight: 0
+    });
 
     // computed
     const showLoadMoreButton = computed(() => viewType.value === 'all' && pokemonList.value.length < POKEDEX_LIMIT);
@@ -35,7 +44,7 @@
                         id: oResult.result.id,
                         name: oResult.result.name,
                         types: oResult.result.types,
-                        image: oResult.result.sprites.other['official-artwork'].front_default,
+                        image: oResult.result.sprites.other['official-artwork'],
                         height: oResult.result.height,
                         weight: oResult.result.weight
                     })),
@@ -107,6 +116,10 @@
         }
     }
 
+    function openPopup(oPokemon) {
+        selectedPokemon.value = JSON.parse(JSON.stringify(oPokemon));
+    }
+
     // state hooks
     onMounted(() => {
         initialLoadPokemonList();
@@ -130,7 +143,7 @@
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            <PokemonCard v-for="pokemon in pokemonList" :key="pokemon.id" :pokemon="pokemon" />
+            <PokemonCard v-for="pokemon in pokemonList" :key="pokemon.id" :pokemon="pokemon" @open-popup="openPopup" />
         </div>
 
         <div class="justify-content-center py-2" :class="[ showLoadMoreButton === true ? 'd-flex' : 'd-none' ]">
@@ -140,4 +153,5 @@
             <Paginator :current-page="currentPage" :item-count="POKEDEX_LIMIT" :page-limit="PAGE_LIMIT" @change-page="changePagination" />
         </div>
     </div>
+    <PokemonDetails :pokemon="selectedPokemon" />
 </template>

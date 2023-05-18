@@ -1,83 +1,84 @@
 @import "bootstrap/scss/bootstrap";
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // badge colors
 .type-badge-normal {
-    background-color: $gray-200;
+    background-color: $gray-300 !important;
     color: $black;
 }
 .type-badge-fighting {
-    background-color: $red-700;
+    background-color: $red-700 !important;
     color: $white;
 }
 .type-badge-flying {
-    background-color: $indigo-300;
+    background-color: $indigo-300 !important;
     color: $black;
 }
 .type-badge-poison {
-    background-color: $purple-600;
+    background-color: $purple-600 !important;
     color: $white;
 }
 .type-badge-ground {
-    background-color: $yellow-600;
+    background-color: $yellow-600 !important;
     color: $white;
 }
 .type-badge-rock {
-    background-color: $yellow-700;
+    background-color: $yellow-700 !important;
     color: $white;
 }
 .type-badge-bug {
-    background-color: $green-700;
+    background-color: $green-700 !important;
     color: $white;
 }
 .type-badge-ghost {
-    background-color: $purple-800;
+    background-color: $purple-800 !important;
     color: $white;
 }
 .type-badge-steel {
-    background-color: $gray-500;
+    background-color: $gray-500 !important;
     color: $black;
 }
 .type-badge-fire {
-    background-color: $orange-500;
+    background-color: $orange-500 !important;
     color: $black;
 }
 .type-badge-water {
-    background-color: $blue-500;
+    background-color: $blue-500 !important;
     color: $white;
 }
 .type-badge-grass {
-    background-color: $green-500;
+    background-color: $green-500 !important;
     color: $white;
 }
 .type-badge-electric {
-    background-color: $yellow-500;
+    background-color: $yellow-500 !important;
     color: $black;
 }
 .type-badge-psychic {
-    background-color: $pink-500;
+    background-color: $pink-500 !important;
     color: $white;
 }
 .type-badge-ice {
-    background-color: $cyan-500;
+    background-color: $cyan-500 !important;
     color: $black;
 }
 .type-badge-dragon {
-    background-color: $indigo-500;
+    background-color: $indigo-500 !important;
     color: $white;
 }
 .type-badge-dark {
-    background-color: $orange-900;
+    background-color: $orange-900 !important;
     color: $white;
 }
 .type-badge-fairy {
-    background-color: $pink-300;
+    background-color: $pink-300 !important;
     color: $black;
 }
 
 
 
 .card-normal {
-    background-color: rgba($gray-200, 0.2);
+    background-color: rgba($gray-300, 0.2);
 }
 .card-fighting {
     background-color: rgba($red-700, 0.2);
