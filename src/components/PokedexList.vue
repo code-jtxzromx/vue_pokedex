@@ -13,10 +13,9 @@
     const currentPage = ref(1);
     const pageList = ref([]);
 
+    // computed
     const showLoadMoreButton = computed(() => viewType.value === 'all' && pokemonList.value.length < POKEDEX_LIMIT);
     const showPagination = computed(() => viewType.value === 'page');
-
-    // computed
 
     // methods
     async function getPokemonList(iOffset = 0, iLimit = 50) {
@@ -135,18 +134,30 @@
             </button>
         </div>
 
-        <ul class="list-unstyled">
-            <li v-for="pokemon in pokemonList" :key="pokemon.id">
-                <img :src="pokemon.image" style="height: 60px; width: 60px; object-fit: contain;" />
-                <p>{{ formatPokemonName(pokemon.name) }}</p>
-                <p>
-                    <span v-for="elemtype in pokemon.types" :key="elemtype.slot">
-                        {{ elemtype.type.name.toUpperCase() }}&nbsp;
-                    </span>
-                </p>
-                <button>View Details</button>
-            </li>
-        </ul>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div class="col py-2" v-for="pokemon in pokemonList" :key="pokemon.id">
+                <div class="card px-1">
+                    <div class="card-body d-flex">
+                        <div class="flex-shrink-0">
+                            <img :src="pokemon.image" style="height: 60px; width: 60px; object-fit: contain;" :alt="pokemon.name" />
+                        </div>
+                        <div class="flex-grow-1 mx-3">
+                            <span class="badge rounded-pill text-bg-dark">
+                                {{ '#' + String(pokemon.id).padStart(3, '0') }}
+                            </span>
+                            <p class="card-title">
+                                <strong>{{ formatPokemonName(pokemon.name) }}</strong>
+                            </p>
+                            <p class="card-text">
+                                <span class="badge text-bg-success me-1" v-for="elemtype in pokemon.types" :key="elemtype.slot">
+                                    {{ elemtype.type.name.toUpperCase() }}&nbsp;
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="justify-content-center py-2" :class="[ showLoadMoreButton === true ? 'd-flex' : 'd-none' ]">
             <button type="button" class="btn btn-outline-primary" @click="addMorePokemon">Load More</button>
