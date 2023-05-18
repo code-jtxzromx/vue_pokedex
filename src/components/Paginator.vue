@@ -21,7 +21,7 @@
 <template>
     <ul class="pagination">
         <li class="page-item"><a class="page-link" href="#" @click="changePagination(previousPage)">Previous</a></li>
-        <li v-for="pageItem in pageList" :key="pageItem" class="page-item disabled" :class="{ active: props.currentPage === pageItem }" @click="changePagination(pageItem)">
+        <li v-for="pageItem in pageList" :key="pageItem" class="page-item" :class="{ active: props.currentPage === pageItem }" @click="changePagination(pageItem)">
             <a href="#" class="page-link">{{ pageItem }}</a>
         </li>
         <li class="page-item"><a class="page-link" href="#" @click="changePagination(nextPage)">Next</a></li>
