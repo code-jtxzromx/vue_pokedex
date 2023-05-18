@@ -1,1 +1,132 @@
 @import "bootstrap/scss/bootstrap";
+
+// badge colors
+.type-badge-normal {
+    background-color: $gray-200;
+    color: $black;
+}
+.type-badge-fighting {
+    background-color: $red-700;
+    color: $white;
+}
+.type-badge-flying {
+    background-color: $indigo-300;
+    color: $black;
+}
+.type-badge-poison {
+    background-color: $purple-600;
+    color: $white;
+}
+.type-badge-ground {
+    background-color: $yellow-600;
+    color: $white;
+}
+.type-badge-rock {
+    background-color: $yellow-700;
+    color: $white;
+}
+.type-badge-bug {
+    background-color: $green-700;
+    color: $white;
+}
+.type-badge-ghost {
+    background-color: $purple-800;
+    color: $white;
+}
+.type-badge-steel {
+    background-color: $gray-500;
+    color: $black;
+}
+.type-badge-fire {
+    background-color: $orange-500;
+    color: $black;
+}
+.type-badge-water {
+    background-color: $blue-500;
+    color: $white;
+}
+.type-badge-grass {
+    background-color: $green-500;
+    color: $white;
+}
+.type-badge-electric {
+    background-color: $yellow-500;
+    color: $black;
+}
+.type-badge-psychic {
+    background-color: $pink-500;
+    color: $white;
+}
+.type-badge-ice {
+    background-color: $cyan-500;
+    color: $black;
+}
+.type-badge-dragon {
+    background-color: $indigo-500;
+    color: $white;
+}
+.type-badge-dark {
+    background-color: $orange-900;
+    color: $white;
+}
+.type-badge-fairy {
+    background-color: $pink-300;
+    color: $black;
+}
+
+
+
+.card-normal {
+    background-color: rgba($gray-200, 0.2);
+}
+.card-fighting {
+    background-color: rgba($red-700, 0.2);
+}
+.card-flying {
+    background-color: rgba($indigo-300, 0.2);
+}
+.card-poison {
+    background-color: rgba($purple-600, 0.2);
+}
+.card-ground {
+    background-color: rgba($yellow-600, 0.2);
+}
+.card-rock {
+    background-color: rgba($yellow-700, 0.2);
+}
+.card-bug {
+    background-color: rgba($green-700, 0.2);
+}
+.card-ghost {
+    background-color: rgba($purple-800, 0.2);
+}
+.card-steel {
+    background-color: rgba($gray-500, 0.2);
+}
+.card-fire {
+    background-color: rgba($orange-500, 0.2);
+}
+.card-water {
+    background-color: rgba($blue-500, 0.2);
+}
+.card-grass {
+    background-color: rgba($green-500, 0.2);
+}
+.card-electric {
+    background-color: rgba($yellow-500, 0.2);
+}
+.card-psychic {
+    background-color: rgba($pink-500, 0.2);
+}
+.card-ice {
+    background-color: rgba($cyan-500, 0.2);
+}
+.card-dragon {
+    background-color: rgba($indigo-500, 0.2);
+}
+.card-dark {
+    background-color: rgba($orange-900, 0.2);
+}
+.card-fairy {
+    background-color: rgba($pink-300, 0.2);
+}

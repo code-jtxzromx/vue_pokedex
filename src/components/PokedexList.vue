@@ -1,17 +1,19 @@
 <script setup>
     // declaration
     import axios from "axios";
-    import { computed, onMounted, reactive, ref } from "vue";
+    import { computed, onMounted, ref } from "vue";
+
+    // components
+    import Paginator from './Paginator.vue';
+    import PokemonCard from "./PokemonCard.vue";
 
     // data
     const POKEDEX_LIMIT = 150;
     const PAGE_LIMIT = 30;
-    const PAGE_COUNT = Math.ceil(POKEDEX_LIMIT / PAGE_LIMIT);
 
     const pokemonList = ref([]);
     const viewType = ref("all"); // values: all, page
     const currentPage = ref(1);
-    const pageList = ref([]);
 
     // computed
     const showLoadMoreButton = computed(() => viewType.value === 'all' && pokemonList.value.length < POKEDEX_LIMIT);
@@ -55,15 +57,12 @@
         }
     }
 
-    function formatPokemonName(sName) {
-        return sName.charAt(0).toUpperCase() + sName.slice(1)
-    }
-
     function changeViewType(sView) {
         let sCurrentView = viewType.value;
         viewType.value = sView;
 
         if (sCurrentView !== sView) {
+            pokemonList.value = [];
             sView === "all" ? initialLoadPokemonList() : changePagination(1);
         }
     }
@@ -111,10 +110,6 @@
     // state hooks
     onMounted(() => {
         initialLoadPokemonList();
-
-        for(let i = 1; i <= PAGE_COUNT; i++) {
-            pageList.value.push(i);
-        }
     })
 </script>
 
@@ -135,39 +130,14 @@
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            <div class="col py-2" v-for="pokemon in pokemonList" :key="pokemon.id">
-                <div class="card px-1">
-                    <div class="card-body d-flex">
-                        <div class="flex-shrink-0">
-                            <img :src="pokemon.image" style="height: 60px; width: 60px; object-fit: contain;" :alt="pokemon.name" />
-                        </div>
-                        <div class="flex-grow-1 mx-3">
-                            <span class="badge rounded-pill text-bg-dark">
-                                {{ '#' + String(pokemon.id).padStart(3, '0') }}
-                            </span>
-                            <p class="card-title">
-                                <strong>{{ formatPokemonName(pokemon.name) }}</strong>
-                            </p>
-                            <p class="card-text">
-                                <span class="badge text-bg-success me-1" v-for="elemtype in pokemon.types" :key="elemtype.slot">
-                                    {{ elemtype.type.name.toUpperCase() }}&nbsp;
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PokemonCard v-for="pokemon in pokemonList" :key="pokemon.id" :pokemon="pokemon" />
         </div>
 
         <div class="justify-content-center py-2" :class="[ showLoadMoreButton === true ? 'd-flex' : 'd-none' ]">
             <button type="button" class="btn btn-outline-primary" @click="addMorePokemon">Load More</button>
         </div>
         <div class="pagination justify-content-center py-2" :class="[ showPagination === true ? 'd-flex' : 'd-none' ]">
-            <ul class="pagination">
-                <li class="page-item" :class="{ active: currentPage === page }" v-for="page in pageList" :key="page" @click="changePagination(page)">
-                    <a href="#" class="page-link">{{ page }}</a>
-                </li>
-            </ul>
+            <Paginator :current-page="currentPage" :item-count="POKEDEX_LIMIT" :page-limit="PAGE_LIMIT" @change-page="changePagination" />
         </div>
     </div>
 </template>
